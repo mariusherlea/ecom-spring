@@ -18,6 +18,9 @@ public class Order extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Cost", nullable = false)
+    private double cost;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -26,6 +29,10 @@ public class Order extends AuditModel {
 
 
     public Order() {
+    }
+
+    public Order(double cost) {
+        this.cost = cost;
     }
 
     public Long getId() {
@@ -42,5 +49,13 @@ public class Order extends AuditModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 }

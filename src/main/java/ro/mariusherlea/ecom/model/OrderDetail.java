@@ -3,7 +3,7 @@ package ro.mariusherlea.ecom.model;
 import javax.persistence.*;
 @Entity
 @Table(name = "Order_Details")
-public class OrderDetail {
+public class OrderDetail extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,25 +19,22 @@ public class OrderDetail {
             foreignKey = @ForeignKey(name = "ORDER_DETAIL_ITEM_FK"))
     private Item item;
 
-    @Column(name = "Quanity", nullable = false)
-    private int quanity;
+    @Column(name = "ItemQuantity", nullable = false)
+    private double ItemQuantity;
 
-    @Column(name = "Price", nullable = false)
-    private double price;
+    @Column(name = "ItemQuantityPrice", nullable = false)
+    private double ItemQuantityPrice;
 
-    @Column(name = "Amount", nullable = false)
-    private double amount;
-
-    public OrderDetail() {
+     public OrderDetail() {
     }
 
-    public OrderDetail( Order order, Item item, int quanity, double price, double amount) {
+    public OrderDetail(Order order, Item item, double ItemQuantity, double ItemQuantityPrice) {
 
         this.order = order;
         this.item = item;
-        this.quanity = quanity;
-        this.price = price;
-        this.amount = amount;
+        this.ItemQuantity = ItemQuantity;
+        this.ItemQuantityPrice = ItemQuantityPrice;
+
     }
 
     public Long getId() {
@@ -64,27 +61,21 @@ public class OrderDetail {
         this.item = item;
     }
 
-    public int getQuanity() {
-        return quanity;
+    public double getItemQuantity() {
+        return ItemQuantity;
     }
 
-    public void setQuanity(int quanity) {
-        this.quanity = quanity;
+    public void setItemQuantity(double quantity) {
+        this.ItemQuantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
+    public double getItemQuantityPrice() {
+        return ItemQuantityPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setItemQuantityPrice(double price) {
+        this.ItemQuantityPrice = price;
     }
 
-    public double getAmount() {
-        return amount;
-    }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 }
