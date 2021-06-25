@@ -24,6 +24,15 @@ public class User extends AuditModel {
     @Size(max = 100)
     private String phone;
 
+    public User() {
+    }
+
+    public User(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public Long getId() {
         return id;
     }

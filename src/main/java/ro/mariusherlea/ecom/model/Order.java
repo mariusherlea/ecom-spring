@@ -24,15 +24,6 @@ public class Order extends AuditModel {
     @JsonIgnore
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "order_item",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "item_id")})
-    private Set<Item> items = new HashSet<>();
 
     public Order() {
     }
