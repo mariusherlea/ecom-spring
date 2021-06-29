@@ -13,7 +13,7 @@ public class ComandDetail {
 
     @ManyToOne
     @JoinColumn(name = "comand_id")
-    private Comand comand;
+    private User comand;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
@@ -38,11 +38,11 @@ public class ComandDetail {
         this.id = id;
     }
 
-    public Comand getComand() {
+    public User getComand() {
         return comand;
     }
 
-    public void setComand(Comand comand) {
+    public void setComand(User comand) {
         this.comand = comand;
     }
 

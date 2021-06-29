@@ -12,6 +12,9 @@ public class Comand {
     @Column(name = "id")
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 
     @OneToMany(mappedBy = "comand")
     private Set<ComandDetail> comandDetails = new HashSet<>();
@@ -41,6 +44,14 @@ public class Comand {
         this.comandDetails = comandDetails;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -49,21 +60,6 @@ public class Comand {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Comand other = (Comand) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
+
 
 }
