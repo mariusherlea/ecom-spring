@@ -5,22 +5,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "item")
-public class Item {
+@Table(name = "comand")
+public class Comand {
 
     @Id
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "item")
+
+    @OneToMany(mappedBy = "comand")
     private Set<ComandDetail> registrations = new HashSet<>();
 
     // additional properties
 
-    public Item() {
+    public Comand() {
     }
 
-    public Item(Long id) {
+    public Comand(Long id) {
         this.id = id;
     }
 
@@ -31,6 +32,9 @@ public class Item {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+
 
     public Set<ComandDetail> getRegistrations() {
         return registrations;
@@ -56,7 +60,7 @@ public class Item {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Item other = (Item) obj;
+        Comand other = (Comand) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
