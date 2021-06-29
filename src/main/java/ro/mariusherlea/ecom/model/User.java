@@ -2,7 +2,7 @@ package ro.mariusherlea.ecom.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -13,14 +13,21 @@ public class User {
     private Long id;
 
     @OneToMany(mappedBy = "user")
-    private List<Comand> comand;
-    // additional properties
+    private List<Orders> orders;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
 
     public User() {
     }
 
-    public User(Long id) {
+    public User(Long id, String name, String email) {
         this.id = id;
+        this.name = name;
+        this.email = email;
     }
 
     public Long getId() {
@@ -31,22 +38,53 @@ public class User {
         this.id = id;
     }
 
-    public List<Comand> getComand() {
-        return comand;
+    public List<Orders> getOrders() {
+        return orders;
     }
 
-    public void setComand(List<Comand> comand) {
-        this.comand = comand;
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id) &&
+                orders.equals(user.orders) &&
+                name.equals(user.name) &&
+                email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+        return Objects.hash(id, orders, name, email);
     }
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", orders=" + orders +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
