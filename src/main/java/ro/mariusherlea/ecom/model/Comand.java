@@ -14,7 +14,7 @@ public class Comand {
 
 
     @OneToMany(mappedBy = "comand")
-    private Set<ComandDetail> registrations = new HashSet<>();
+    private Set<ComandDetail> comandDetails = new HashSet<>();
 
     // additional properties
 
@@ -33,15 +33,12 @@ public class Comand {
         this.id = id;
     }
 
-
-
-
-    public Set<ComandDetail> getRegistrations() {
-        return registrations;
+    public Set<ComandDetail> getComandDetails() {
+        return comandDetails;
     }
 
-    public void setRegistrations(Set<ComandDetail> registrations) {
-        this.registrations = registrations;
+    public void setComandDetails(Set<ComandDetail> comandDetails) {
+        this.comandDetails = comandDetails;
     }
 
     @Override
