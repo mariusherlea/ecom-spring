@@ -2,6 +2,7 @@ package ro.mariusherlea.ecom.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,11 +17,11 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
+    @OneToMany(mappedBy = "item")
+    private List<Sku> skus;
+
     @Column(name = "name")
     private String name;
-
-    @Column(name = "price")
-    private Double price;
 
     @Column(name = "stock")
     private Double stock;
@@ -28,14 +29,14 @@ public class Item {
     public Item() {
     }
 
-    public Item(Long id, String name, Double price, Double stock) {
-        this.id = id;
+    public Item(Set<OrderDetail> orderDetails, List<Sku> skus, String name, Double stock) {
+        this.orderDetails = orderDetails;
+        this.skus = skus;
         this.name = name;
-        this.price = price;
         this.stock = stock;
     }
 
-       public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -51,20 +52,20 @@ public class Item {
         this.orderDetails = orderDetails;
     }
 
+    public List<Sku> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(List<Sku> skus) {
+        this.skus = skus;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Double getStock() {
@@ -82,14 +83,14 @@ public class Item {
         Item item = (Item) o;
         return id.equals(item.id) &&
                 orderDetails.equals(item.orderDetails) &&
+                skus.equals(item.skus) &&
                 name.equals(item.name) &&
-                price.equals(item.price) &&
                 stock.equals(item.stock);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderDetails, name, price, stock);
+        return Objects.hash(id, orderDetails, skus, name, stock);
     }
 
     @Override
@@ -97,8 +98,8 @@ public class Item {
         return "Item{" +
                 "id=" + id +
                 ", orderDetails=" + orderDetails +
+                ", skus=" + skus +
                 ", name='" + name + '\'' +
-                ", price=" + price +
                 ", stock=" + stock +
                 '}';
     }
