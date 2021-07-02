@@ -1,19 +1,23 @@
 package ro.mariusherlea.ecom.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 
 @Entity
 @Table(name = "sku")
-public class Sku {
+public class Sku extends AuditModel{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="item_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "item_id")
+    @JsonIgnore
     private Item item;
 
     @Column(name = "price")

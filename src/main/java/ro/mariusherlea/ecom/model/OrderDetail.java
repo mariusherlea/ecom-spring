@@ -1,39 +1,41 @@
 package ro.mariusherlea.ecom.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_detail")
-public class OrderDetail {
+public class OrderDetail extends AuditModel{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orders_id")
+    @JsonIgnore
     private Orders orders;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "item_id")
+    @JsonIgnore
     private Item item;
 
-    @Column(name = "registered_at")
-    private LocalDateTime registeredAt;
 
     @Column(name = "item_quantity")
-    private Double ItemQuantityOrdered;
+    private Double itemQuantityOrdered;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(Orders orders, Item item, LocalDateTime registeredAt, Double itemQuantityOrdered) {
+    public OrderDetail(Orders orders, Item item,  Double itemQuantityOrdered) {
         this.orders = orders;
         this.item = item;
-        this.registeredAt = registeredAt;
-        ItemQuantityOrdered = itemQuantityOrdered;
+
+        this.itemQuantityOrdered = itemQuantityOrdered;
     }
 
     public Long getId() {
@@ -60,20 +62,12 @@ public class OrderDetail {
         this.item = item;
     }
 
-    public LocalDateTime getRegisteredAt() {
-        return registeredAt;
-    }
-
-    public void setRegisteredAt(LocalDateTime registeredAt) {
-        this.registeredAt = registeredAt;
-    }
-
-    public Double getItemQuantityOrdered() {
-        return ItemQuantityOrdered;
+      public Double getItemQuantityOrdered() {
+        return itemQuantityOrdered;
     }
 
     public void setItemQuantityOrdered(Double grade) {
-        this.ItemQuantityOrdered = grade;
+        this.itemQuantityOrdered = grade;
     }
 
     @Override
@@ -84,13 +78,13 @@ public class OrderDetail {
         return id.equals(that.id) &&
                 orders.equals(that.orders) &&
                 item.equals(that.item) &&
-                registeredAt.equals(that.registeredAt) &&
-                ItemQuantityOrdered.equals(that.ItemQuantityOrdered);
+
+                itemQuantityOrdered.equals(that.itemQuantityOrdered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orders, item, registeredAt, ItemQuantityOrdered);
+        return Objects.hash(id, orders, item, itemQuantityOrdered);
     }
 
     @Override
@@ -99,8 +93,8 @@ public class OrderDetail {
                 "id=" + id +
                 ", orders=" + orders +
                 ", item=" + item +
-                ", registeredAt=" + registeredAt +
-                ", ItemQuantityOrdered=" + ItemQuantityOrdered +
+
+                ", ItemQuantityOrdered=" + itemQuantityOrdered +
                 '}';
     }
 }

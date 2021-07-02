@@ -8,17 +8,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item extends AuditModel{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "item")
-    private Set<OrderDetail> orderDetails = new HashSet<>();
-
-    @OneToMany(mappedBy = "item")
-    private List<Sku> skus;
 
     @Column(name = "name")
     private String name;
@@ -29,9 +24,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(Set<OrderDetail> orderDetails, List<Sku> skus, String name, Double stock) {
-        this.orderDetails = orderDetails;
-        this.skus = skus;
+    public Item(String name, Double stock) {
         this.name = name;
         this.stock = stock;
     }
@@ -42,22 +35,6 @@ public class Item {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<Sku> getSkus() {
-        return skus;
-    }
-
-    public void setSkus(List<Sku> skus) {
-        this.skus = skus;
     }
 
     public String getName() {
@@ -82,23 +59,19 @@ public class Item {
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
         return id.equals(item.id) &&
-                orderDetails.equals(item.orderDetails) &&
-                skus.equals(item.skus) &&
                 name.equals(item.name) &&
                 stock.equals(item.stock);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderDetails, skus, name, stock);
+        return Objects.hash(id,  name, stock);
     }
 
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", orderDetails=" + orderDetails +
-                ", skus=" + skus +
                 ", name='" + name + '\'' +
                 ", stock=" + stock +
                 '}';

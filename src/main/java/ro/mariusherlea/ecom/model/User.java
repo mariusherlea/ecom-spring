@@ -6,14 +6,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends AuditModel{
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "user")
-    private List<Orders> orders;
 
     @Column(name = "name")
     private String name;
@@ -38,15 +36,7 @@ public class User {
         this.id = id;
     }
 
-    public List<Orders> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Orders> orders) {
-        this.orders = orders;
-    }
-
-    public String getName() {
+     public String getName() {
         return name;
     }
 
@@ -68,21 +58,19 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id.equals(user.id) &&
-                orders.equals(user.orders) &&
                 name.equals(user.name) &&
                 email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orders, name, email);
+        return Objects.hash(id, name, email);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", orders=" + orders +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
