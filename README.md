@@ -1,4 +1,4 @@
 # ecom-spring
 
-My db schema so far [is](https://mherlea.000webhostapp.com/db.html)
+A schema of model that permit customizable all entities and with relationship like [this](https://mherlea.000webhostapp.com/db.html)
 
