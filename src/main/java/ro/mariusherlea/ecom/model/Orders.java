@@ -18,10 +18,15 @@ public class Orders extends AuditModel{
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
+
     @JsonIgnore
     private User user;
 
     public Orders() {
+    }
+
+    public Orders(User user) {
+        this.user = user;
     }
 
     public Orders(Long id) {

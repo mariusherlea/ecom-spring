@@ -22,9 +22,8 @@ public class User extends AuditModel{
     public User() {
     }
 
-    public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
+    public User( String name, String email) {
+         this.name = name;
         this.email = email;
     }
 

@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/userss")
+    @GetMapping("/users")
     public Page<User> getAllUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }

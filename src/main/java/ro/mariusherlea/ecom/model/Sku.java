@@ -8,11 +8,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "sku")
-public class Sku extends AuditModel{
+public class Sku extends AuditModel {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,8 +26,7 @@ public class Sku extends AuditModel{
     public Sku() {
     }
 
-    public Sku(Long id, Item item, Double price) {
-        this.id = id;
+    public Sku(Item item, Double price) {
         this.item = item;
         this.price = price;
     }
