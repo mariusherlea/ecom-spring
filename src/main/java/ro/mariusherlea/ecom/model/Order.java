@@ -3,13 +3,11 @@ package ro.mariusherlea.ecom.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class Orders extends AuditModel{
+public class Order extends AuditModel{
 
     @Id
     @Column(name = "id")
@@ -22,14 +20,14 @@ public class Orders extends AuditModel{
     @JsonIgnore
     private User user;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(User user) {
+    public Order(User user) {
         this.user = user;
     }
 
-    public Orders(Long id) {
+    public Order(Long id) {
         this.id = id;
     }
 
@@ -53,9 +51,9 @@ public class Orders extends AuditModel{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Orders orders = (Orders) o;
-        return id.equals(orders.id) &&
-                user.equals(orders.user) ;
+        Order order = (Order) o;
+        return id.equals(order.id) &&
+                user.equals(order.user) ;
     }
 
     @Override

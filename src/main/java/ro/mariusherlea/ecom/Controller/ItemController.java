@@ -36,7 +36,6 @@ public class ItemController {
         }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
     }
 
-
     @DeleteMapping("/items/{itemId}")
     public ResponseEntity<?> deleteItem(@PathVariable Long itemId) {
         return itemRepository.findById(itemId).map(item -> {
@@ -45,16 +44,5 @@ public class ItemController {
         }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
     }
 
-   /* @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }*/
 
 }

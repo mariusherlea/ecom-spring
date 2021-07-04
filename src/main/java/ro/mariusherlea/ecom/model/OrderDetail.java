@@ -17,7 +17,7 @@ public class OrderDetail extends AuditModel{
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orders_id")
     @JsonIgnore
-    private Orders orders;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "item_id")
@@ -31,8 +31,8 @@ public class OrderDetail extends AuditModel{
     public OrderDetail() {
     }
 
-    public OrderDetail(Orders orders, Item item,  Double itemQuantityOrdered) {
-        this.orders = orders;
+    public OrderDetail(Order order, Item item, Double itemQuantityOrdered) {
+        this.order = order;
         this.item = item;
 
         this.itemQuantityOrdered = itemQuantityOrdered;
@@ -46,12 +46,12 @@ public class OrderDetail extends AuditModel{
         this.id = id;
     }
 
-    public Orders getOrders() {
-        return orders;
+    public Order getOrders() {
+        return order;
     }
 
-    public void setOrders(Orders orders) {
-        this.orders = orders;
+    public void setOrders(Order order) {
+        this.order = order;
     }
 
     public Item getItem() {
@@ -76,7 +76,7 @@ public class OrderDetail extends AuditModel{
         if (o == null || getClass() != o.getClass()) return false;
         OrderDetail that = (OrderDetail) o;
         return id.equals(that.id) &&
-                orders.equals(that.orders) &&
+                order.equals(that.order) &&
                 item.equals(that.item) &&
 
                 itemQuantityOrdered.equals(that.itemQuantityOrdered);
@@ -84,14 +84,14 @@ public class OrderDetail extends AuditModel{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orders, item, itemQuantityOrdered);
+        return Objects.hash(id, order, item, itemQuantityOrdered);
     }
 
     @Override
     public String toString() {
         return "OrderDetail{" +
                 "id=" + id +
-                ", orders=" + orders +
+                ", order=" + order +
                 ", item=" + item +
 
                 ", ItemQuantityOrdered=" + itemQuantityOrdered +

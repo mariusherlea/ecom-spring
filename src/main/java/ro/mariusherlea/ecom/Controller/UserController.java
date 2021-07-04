@@ -6,9 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.mariusherlea.ecom.Exception.ResourceNotFoundException;
-import ro.mariusherlea.ecom.model.Item;
 import ro.mariusherlea.ecom.model.User;
-import ro.mariusherlea.ecom.model.repository.ItemRepository;
 import ro.mariusherlea.ecom.model.repository.UserRepository;
 
 import javax.validation.Valid;
