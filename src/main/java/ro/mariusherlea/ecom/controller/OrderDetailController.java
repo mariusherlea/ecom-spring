@@ -1,10 +1,10 @@
-package ro.mariusherlea.ecom.Controller;
+package ro.mariusherlea.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import ro.mariusherlea.ecom.Exception.ResourceNotFoundException;
+import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
 import ro.mariusherlea.ecom.model.OrderDetail;
 import ro.mariusherlea.ecom.model.repository.ItemRepository;
 import ro.mariusherlea.ecom.model.repository.OrderDetailRepository;

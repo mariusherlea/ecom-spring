@@ -1,4 +1,4 @@
-package ro.mariusherlea.ecom.Exception;
+package ro.mariusherlea.ecom.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

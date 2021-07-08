@@ -18,12 +18,16 @@ public class Item extends AuditModel{
     @Column(name = "stock")
     private Double stock;
 
+    @Column(name = "price")
+    private Double price;
+
     public Item() {
     }
 
-    public Item(String name, Double stock) {
+    public Item(String name, Double stock, Double price) {
         this.name = name;
         this.stock = stock;
+        this.price = price;
     }
 
     public Long getId() {
@@ -50,6 +54,14 @@ public class Item extends AuditModel{
         this.stock = stock;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,12 +69,13 @@ public class Item extends AuditModel{
         Item item = (Item) o;
         return id.equals(item.id) &&
                 name.equals(item.name) &&
-                stock.equals(item.stock);
+                stock.equals(item.stock) &&
+                price.equals(item.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id,  name, stock);
+        return Objects.hash(name, stock, price);
     }
 
     @Override
@@ -71,6 +84,7 @@ public class Item extends AuditModel{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", stock=" + stock +
+                ", price=" + price +
                 '}';
     }
 }

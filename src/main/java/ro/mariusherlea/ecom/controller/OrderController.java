@@ -1,38 +1,39 @@
-package ro.mariusherlea.ecom.Controller;
+package ro.mariusherlea.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ro.mariusherlea.ecom.Exception.ResourceNotFoundException;
-import ro.mariusherlea.ecom.model.Sku;
-import ro.mariusherlea.ecom.model.repository.ItemRepository;
-import ro.mariusherlea.ecom.model.repository.SkuRepository;
+import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
+import ro.mariusherlea.ecom.model.Order;
+import ro.mariusherlea.ecom.model.repository.OrderRepository;
+import ro.mariusherlea.ecom.model.repository.UserRepository;
 
 import javax.validation.Valid;
 
 @RestController
-public class SkuController {
+public class OrderController {
 
     @Autowired
-    private SkuRepository skuRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    private ItemRepository itemRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/items/{itemId}/skus")
-    public Page<Sku> getAllSkuByItemId(@PathVariable (value = "itemId") Long itemId,
-                                       Pageable pageable) {
-        return skuRepository.findByItemId(itemId, pageable);
+    @GetMapping("/users/{userId}/order")
+    public Page<Order> getAllOrderByUserId(@PathVariable (value = "userId") Long userId,
+                                           Pageable pageable) {
+        return orderRepository.findByUserId(userId, pageable);
     }
 
-    @PostMapping("/items/{itemId}/skus")
-    public Sku createSku(@PathVariable (value = "itemId") Long itemId,
-                          @Valid @RequestBody Sku sku) {
-        return itemRepository.findById(itemId).map(item -> {
-            sku.setItem(item);
-            return skuRepository.save(sku);
-        }).orElseThrow(() -> new ResourceNotFoundException("ItemId " + itemId + " not found"));
+    @PostMapping("/users/{userId}/order")
+    public Order createOrder(@PathVariable (value = "userId") Long userId,
+                             @Valid @RequestBody Order order) {
+        return userRepository.findById(userId).map(user -> {
+            order.setUser(user);
+            return orderRepository.save(order);
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }
 
     /*@PutMapping("/users/{userId}/order/{orderId}")
@@ -49,12 +50,12 @@ public class SkuController {
         }).orElseThrow(() -> new ResourceNotFoundException("OrderId " + orderId + "not found"));
     }*/
 
-   /* @DeleteMapping("/users/{userId}/order/{orderId}")
+    @DeleteMapping("/users/{userId}/order/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable (value = "userId") Long userId,
                                            @PathVariable (value = "orderId") Long orderId) {
-        return skuRepository.findByIdAndUserId(orderId, userId).map(order -> {
-            skuRepository.delete(order);
+        return orderRepository.findByIdAndUserId(orderId, userId).map(order -> {
+            orderRepository.delete(order);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + orderId + " and userId " + userId));
-    }*/
+    }
 }
