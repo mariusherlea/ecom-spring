@@ -1,6 +1,4 @@
-# ecom-spring
-
-#Ecommerce build with SpringBoot and MySql
+# Ecommerce build with SpringBoot and MySql
 
 Entities:
 -Item to sale
