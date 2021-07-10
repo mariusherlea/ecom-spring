@@ -3,23 +3,24 @@ package ro.mariusherlea.ecom.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "order_detail")
-public class OrderDetail extends AuditModel{
+public class OrderDetail extends AuditModel implements Serializable {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "orders_id")
     @JsonIgnore
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "item_id")
     @JsonIgnore
     private Item item;
