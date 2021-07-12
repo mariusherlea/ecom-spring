@@ -15,28 +15,30 @@ public class OrderDetail extends AuditModel implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orders_id")
     @JsonIgnore
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "item_id")
     @JsonIgnore
     private Item item;
 
-
     @Column(name = "item_quantity")
     private Double itemQuantityOrdered;
+
+    @Column(name = "price_of_item_ordered")
+    private Double priceOfItemOrdered;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(Order order, Item item, Double itemQuantityOrdered) {
+    public OrderDetail(Order order, Item item, Double itemQuantityOrdered, Double priceOfItemOrdered) {
         this.order = order;
         this.item = item;
-
         this.itemQuantityOrdered = itemQuantityOrdered;
+        this.priceOfItemOrdered = priceOfItemOrdered;
     }
 
     public Long getId() {
@@ -47,11 +49,11 @@ public class OrderDetail extends AuditModel implements Serializable {
         this.id = id;
     }
 
-    public Order getOrders() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrders(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
@@ -63,12 +65,20 @@ public class OrderDetail extends AuditModel implements Serializable {
         this.item = item;
     }
 
-      public Double getItemQuantityOrdered() {
+    public Double getItemQuantityOrdered() {
         return itemQuantityOrdered;
     }
 
-    public void setItemQuantityOrdered(Double grade) {
-        this.itemQuantityOrdered = grade;
+    public void setItemQuantityOrdered(Double itemQuantityOrdered) {
+        this.itemQuantityOrdered = itemQuantityOrdered;
+    }
+
+    public Double getPriceOfItemOrdered() {
+        return priceOfItemOrdered;
+    }
+
+    public void setPriceOfItemOrdered(Double priceOfItemOrdered) {
+        this.priceOfItemOrdered = priceOfItemOrdered;
     }
 
     @Override
@@ -79,13 +89,13 @@ public class OrderDetail extends AuditModel implements Serializable {
         return id.equals(that.id) &&
                 order.equals(that.order) &&
                 item.equals(that.item) &&
-
-                itemQuantityOrdered.equals(that.itemQuantityOrdered);
+                itemQuantityOrdered.equals(that.itemQuantityOrdered) &&
+                priceOfItemOrdered.equals(that.priceOfItemOrdered);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, order, item, itemQuantityOrdered);
+        return Objects.hash(id, order, item, itemQuantityOrdered, priceOfItemOrdered);
     }
 
     @Override
@@ -94,8 +104,8 @@ public class OrderDetail extends AuditModel implements Serializable {
                 "id=" + id +
                 ", order=" + order +
                 ", item=" + item +
-
-                ", ItemQuantityOrdered=" + itemQuantityOrdered +
+                ", itemQuantityOrdered=" + itemQuantityOrdered +
+                ", priceOfItemOrdered=" + priceOfItemOrdered +
                 '}';
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
+import ro.mariusherlea.ecom.model.Item;
 import ro.mariusherlea.ecom.model.OrderDetail;
 import ro.mariusherlea.ecom.model.repository.ItemRepository;
 import ro.mariusherlea.ecom.model.repository.OrderDetailRepository;
@@ -34,9 +35,11 @@ public class OrderDetailController {
     public OrderDetail createOrderDetail(@PathVariable(value = "itemId") Long itemId, @PathVariable(value = "orderId") Long orderId,
                                          @Valid @RequestBody OrderDetail orderDetail) {
         return orderRepository.findById(orderId).map(order -> {
-            orderDetail.setOrders(order);
+            orderDetail.setOrder(order);
             itemRepository.findById(itemId).map(item -> {
                 orderDetail.setItem(item);
+                //calculus of item added in shopping cart based on Item.price and quantity ordered
+                orderDetail.setPriceOfItemOrdered(item.getPrice()*orderDetail.getItemQuantityOrdered());
                 return null;
             });
             return orderDetailRepository.save(orderDetail);
