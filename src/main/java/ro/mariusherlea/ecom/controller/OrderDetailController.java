@@ -12,10 +12,11 @@ import ro.mariusherlea.ecom.model.repository.OrderDetailRepository;
 import ro.mariusherlea.ecom.model.repository.OrderRepository;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class OrderDetailController {
-
+    static double sum = 0D;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
@@ -26,9 +27,8 @@ public class OrderDetailController {
     private ItemRepository itemRepository;
 
     @GetMapping("/orders/{orderId}/orderDetail")
-    public Page<OrderDetail> getAllOrderDetailByOrdersId(@PathVariable(value = "orderId") Long orderId,
-                                                         Pageable pageable) {
-        return orderDetailRepository.findByOrderId(orderId, pageable);
+    public List<OrderDetail> getAllOrderDetailByOrdersId(@PathVariable(value = "orderId") Long orderId) {
+        return orderDetailRepository.findByOrderId(orderId);
     }
 
     @PostMapping("/orders/{orderId}/orderDetail/{itemId}")
@@ -38,8 +38,15 @@ public class OrderDetailController {
             orderDetail.setOrder(order);
             itemRepository.findById(itemId).map(item -> {
                 orderDetail.setItem(item);
+
                 //calculus of item added in shopping cart based on Item.price and quantity ordered
-                orderDetail.setPriceOfItemOrdered(item.getPrice()*orderDetail.getItemQuantityOrdered());
+                orderDetail.setPriceOfItemOrdered(item.getPrice() * orderDetail.getItemQuantityOrdered());
+
+                List<OrderDetail> orderDetails = getAllOrderDetailByOrdersId(orderId);
+                for (OrderDetail op : orderDetails) {
+                    sum += op.getPriceOfItemOrdered();
+                }
+                order.setCostOfOrder(sum);
                 return null;
             });
             return orderDetailRepository.save(orderDetail);

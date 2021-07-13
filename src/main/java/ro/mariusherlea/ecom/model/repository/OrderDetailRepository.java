@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import ro.mariusherlea.ecom.model.OrderDetail;
 
+import java.util.List;
+
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
-    Page<OrderDetail> findByOrderId(Long orderId, Pageable pageable);
+    List<OrderDetail> findByOrderId(Long orderId);
 }
