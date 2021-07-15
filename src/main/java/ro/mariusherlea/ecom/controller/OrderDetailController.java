@@ -10,13 +10,14 @@ import ro.mariusherlea.ecom.model.OrderDetail;
 import ro.mariusherlea.ecom.model.repository.ItemRepository;
 import ro.mariusherlea.ecom.model.repository.OrderDetailRepository;
 import ro.mariusherlea.ecom.model.repository.OrderRepository;
+import ro.mariusherlea.ecom.service.OrderDetailService;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 public class OrderDetailController {
-    static double sum = 0D;
+
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
@@ -25,6 +26,9 @@ public class OrderDetailController {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @GetMapping("/orders/{orderId}/orderDetail")
     public List<OrderDetail> getAllOrderDetailByOrdersId(@PathVariable(value = "orderId") Long orderId) {
@@ -40,13 +44,7 @@ public class OrderDetailController {
                 orderDetail.setItem(item);
 
                 //calculus of item added in shopping cart based on Item.price and quantity ordered
-                orderDetail.setPriceOfItemOrdered(item.getPrice() * orderDetail.getItemQuantityOrdered());
-
-                List<OrderDetail> orderDetails = getAllOrderDetailByOrdersId(orderId);
-                for (OrderDetail op : orderDetails) {
-                    sum += op.getPriceOfItemOrdered();
-                }
-                order.setCostOfOrder(sum);
+                orderDetailService.calcul(orderDetail, item, order);
                 return null;
             });
             return orderDetailRepository.save(orderDetail);
