@@ -19,12 +19,16 @@ public class User extends AuditModel{
     @Column(name = "email")
     private String email;
 
+    @Column(name = "continent")
+    private Integer continent;
+
     public User() {
     }
 
-    public User( String name, String email) {
-         this.name = name;
+    public User(String name, String email, Integer continent) {
+        this.name = name;
         this.email = email;
+        this.continent = continent;
     }
 
     public Long getId() {
@@ -35,7 +39,7 @@ public class User extends AuditModel{
         this.id = id;
     }
 
-     public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -51,6 +55,14 @@ public class User extends AuditModel{
         this.email = email;
     }
 
+    public Integer getContinent() {
+        return continent;
+    }
+
+    public void setContinent(Integer continent) {
+        this.continent = continent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,12 +70,13 @@ public class User extends AuditModel{
         User user = (User) o;
         return id.equals(user.id) &&
                 name.equals(user.name) &&
-                email.equals(user.email);
+                email.equals(user.email) &&
+                continent.equals(user.continent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email);
+        return Objects.hash(id, name, email, continent);
     }
 
     @Override
@@ -72,6 +85,7 @@ public class User extends AuditModel{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", continent='" + continent + '\'' +
                 '}';
     }
 }

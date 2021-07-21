@@ -22,8 +22,6 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-
-
     @GetMapping("/items")
     public Page<Item> getAllItems(Pageable pageable) {
         return itemRepository.findAll(pageable);

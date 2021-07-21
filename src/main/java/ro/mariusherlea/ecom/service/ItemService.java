@@ -18,6 +18,6 @@ public class ItemService {
 
     public void calcul(Item item){
 
-        item.setPriceToPay(item.getBasePrice()- item.getDiscount());
+        item.setPriceToPay(item.getBasePrice() - item.getDiscount());
     }
 }

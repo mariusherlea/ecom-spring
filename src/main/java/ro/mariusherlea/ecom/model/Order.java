@@ -23,12 +23,16 @@ public class Order extends AuditModel {
     @Column(name = "cost")
     private Double costOfOrder=0.d;
 
+    @Column(name = "shipping")
+    private Double shipping =0.d;
+
     public Order() {
     }
 
-    public Order(User user, Double costOfOrder) {
+    public Order(User user, Double costOfOrder, Double shipping) {
         this.user = user;
         this.costOfOrder = costOfOrder;
+        this.shipping = shipping;
     }
 
     public Long getId() {
@@ -55,6 +59,14 @@ public class Order extends AuditModel {
         this.costOfOrder = costOfOrder;
     }
 
+    public Double getShipping() {
+        return shipping;
+    }
+
+    public void setShipping(Double costWithShipping) {
+        this.shipping = costWithShipping;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,12 +74,13 @@ public class Order extends AuditModel {
         Order order = (Order) o;
         return id.equals(order.id) &&
                 user.equals(order.user) &&
-                costOfOrder.equals(order.costOfOrder);
+                costOfOrder.equals(order.costOfOrder) &&
+                shipping.equals(order.shipping);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, costOfOrder);
+        return Objects.hash(id, user, costOfOrder, shipping);
     }
 
     @Override
@@ -76,6 +89,7 @@ public class Order extends AuditModel {
                 "id=" + id +
                 ", user=" + user +
                 ", costOfOrder=" + costOfOrder +
+                ", costWithShipping=" + shipping +
                 '}';
     }
 }

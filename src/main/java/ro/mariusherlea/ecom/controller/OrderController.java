@@ -9,6 +9,7 @@ import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
 import ro.mariusherlea.ecom.model.Order;
 import ro.mariusherlea.ecom.model.repository.OrderRepository;
 import ro.mariusherlea.ecom.model.repository.UserRepository;
+import ro.mariusherlea.ecom.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,9 @@ public class OrderController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderService orderService;
+
     @GetMapping("/users/{userId}/order")
     public Page<Order> getAllOrderByUserId(@PathVariable (value = "userId") Long userId,
                                            Pageable pageable) {
@@ -32,6 +36,7 @@ public class OrderController {
                              @Valid @RequestBody Order order) {
         return userRepository.findById(userId).map(user -> {
             order.setUser(user);
+            orderService.calcul(order, user);
             return orderRepository.save(order);
         }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
     }

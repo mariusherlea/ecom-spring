@@ -19,13 +19,13 @@ public class Item extends AuditModel{
     private Double stock;
 
     @Column(name = "base_price")
-    private Double basePrice;
+    private Double basePrice=0d;
 
     @Column(name = "discount")
-    private Double discount;
+    private Double discount=0d;
 
     @Column(name = "price_to_pay")
-    private Double priceToPay;
+    private Double priceToPay=0d;
 
     public Item() {
     }
