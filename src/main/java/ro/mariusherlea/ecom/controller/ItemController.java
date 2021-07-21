@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
 import ro.mariusherlea.ecom.model.Item;
 import ro.mariusherlea.ecom.model.repository.ItemRepository;
+import ro.mariusherlea.ecom.service.ItemService;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,11 @@ public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private ItemService itemService;
+
+
+
     @GetMapping("/items")
     public Page<Item> getAllItems(Pageable pageable) {
         return itemRepository.findAll(pageable);
@@ -24,6 +31,7 @@ public class ItemController {
 
     @PostMapping("/items")
     public Item createItem(@Valid @RequestBody Item item) {
+        itemService.calcul(item);
         return itemRepository.save(item);
     }
 

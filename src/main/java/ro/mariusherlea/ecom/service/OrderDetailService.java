@@ -16,7 +16,7 @@ public class OrderDetailService {
     private OrderDetailRepository orderDetailRepository;
 
     public void calcul(OrderDetail orderDetail, Item item, Order order){
-        orderDetail.setPriceOfItemOrdered(item.getPrice() * orderDetail.getItemQuantityOrdered());
+        orderDetail.setPriceOfItemOrdered(item.getPriceToPay() * orderDetail.getItemQuantityOrdered());
 
         List<OrderDetail> orderDetails = orderDetailRepository.findByOrderId(order.getId());
         double sum = 0D;

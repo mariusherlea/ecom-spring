@@ -18,16 +18,24 @@ public class Item extends AuditModel{
     @Column(name = "stock")
     private Double stock;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "base_price")
+    private Double basePrice;
+
+    @Column(name = "discount")
+    private Double discount;
+
+    @Column(name = "price_to_pay")
+    private Double priceToPay;
 
     public Item() {
     }
 
-    public Item(String name, Double stock, Double price) {
+    public Item(String name, Double stock, Double basePrice, Double discount, Double priceToPay) {
         this.name = name;
         this.stock = stock;
-        this.price = price;
+        this.basePrice = basePrice;
+        this.discount = discount;
+        this.priceToPay = priceToPay;
     }
 
     public Long getId() {
@@ -54,12 +62,28 @@ public class Item extends AuditModel{
         this.stock = stock;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getBasePrice() {
+        return basePrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setBasePrice(Double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Double getPriceToPay() {
+        return priceToPay;
+    }
+
+    public void setPriceToPay(Double priceToPay) {
+        this.priceToPay = priceToPay;
     }
 
     @Override
@@ -70,12 +94,14 @@ public class Item extends AuditModel{
         return id.equals(item.id) &&
                 name.equals(item.name) &&
                 stock.equals(item.stock) &&
-                price.equals(item.price);
+                basePrice.equals(item.basePrice) &&
+                discount.equals(item.discount) &&
+                priceToPay.equals(item.priceToPay);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, stock, price);
+        return Objects.hash(id, name, stock, basePrice, discount, priceToPay);
     }
 
     @Override
@@ -84,7 +110,9 @@ public class Item extends AuditModel{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", stock=" + stock +
-                ", price=" + price +
+                ", basePrice=" + basePrice +
+                ", discount=" + discount +
+                ", priceToPay=" + priceToPay +
                 '}';
     }
 }
