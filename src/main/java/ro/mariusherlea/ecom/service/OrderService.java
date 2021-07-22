@@ -18,13 +18,16 @@ public class OrderService {
 
     public void calcul(Order order, User user){
         int d=user.getContinent();
-        switch (d){
-            case 1:
-                order.setShipping(20d);
-                break;
-            case 2:
-                order.setShipping(40d);
-                break;
-        }
+//        if(order.getCostOfOrder()<100){
+            switch (d){
+                case 1:
+                    order.setShipping(20d);
+                    break;
+                case 2:
+                    order.setShipping(40d);
+                    break;
+            }
+//        } else order.setShipping(null);
+
     }
 }
