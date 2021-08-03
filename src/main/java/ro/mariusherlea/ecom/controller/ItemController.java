@@ -24,7 +24,7 @@ public class ItemController {
 
     @GetMapping("/items")
     public Page<Item> getAllItems(Pageable pageable) {
-        return itemRepository.findAll(pageable);
+        return (Page<Item>) itemRepository.findAll();
     }
 
     @PostMapping("/items")

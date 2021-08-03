@@ -1,7 +1,8 @@
 package ro.mariusherlea.ecom.model;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,7 @@ public class User extends AuditModel{
     private Long id;
 
     @Column(name = "name")
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(name = "email")
