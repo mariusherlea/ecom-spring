@@ -1,13 +1,16 @@
 package ro.mariusherlea.ecom.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "user")
-public class User extends AuditModel{
+public class User extends AuditModel {
 
     @Id
     @Column(name = "id")
@@ -15,7 +18,8 @@ public class User extends AuditModel{
     private Long id;
 
     @Column(name = "name")
-    @NotBlank(message = "Name is mandatory")
+    @NotNull(message = "User must be between 4 to 15 characters")
+    @Size(min = 4, max = 15)
     private String name;
 
     @Column(name = "email")

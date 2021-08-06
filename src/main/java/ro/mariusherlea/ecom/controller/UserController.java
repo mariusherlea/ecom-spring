@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import ro.mariusherlea.ecom.exception.ResourceNotFoundException;
 import ro.mariusherlea.ecom.model.User;
 import ro.mariusherlea.ecom.model.repository.UserRepository;
+
+
 import javax.validation.Valid;
 
 
 @RestController
-public class UserController extends BadRequestExceptionHandler {
+public class UserController extends BadRequestExceptionHandler{
 
     @Autowired
     private UserRepository userRepository;
@@ -23,8 +25,8 @@ public class UserController extends BadRequestExceptionHandler {
 
     @PostMapping("/users")
     public ResponseEntity<String> createUser(@Valid @RequestBody User user) {
-         userRepository.save(user);
-         return ResponseEntity.ok("User is valid");
+        userRepository.save(user);
+        return ResponseEntity.ok("User is valid");
     }
 
     @PutMapping("/users/{userId}")

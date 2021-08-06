@@ -7,6 +7,7 @@ Item to sale, User of apps, Orders many-to-one User, OrderDetail many-to-one Ord
 Calculus of Item price added into Order Detail, calculus of Order based of Item price added into Order Detail.
 Use of discount for price changes of Items.
 Shipping cost added to Order based on Location of User.
+User input back-end validation implemented.
 
 ## Coding principle:
 For each feature developed I rework the code to comply with SOLID principles.Because after studying these principles I understood their role.
